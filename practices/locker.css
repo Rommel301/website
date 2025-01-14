@@ -1,0 +1,426 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background-image: url(images/background.png);
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    line-height: 1.6;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* Navbar styles */
+.navbar {
+    position: relative;
+    z-index: 1000; /* Ensure navbar stays on top of everything */
+    width: 100%;  /* Full width */
+}
+
+
+.sticky {
+    position: fixed; /* Fix the position */
+    top: 0; /* Stick to the top */
+    width: 100%; /* Full width */
+    z-index: 1000; /* Ensure it stays on top of other content */
+    background-color: #000; /* Optional: background color when sticky */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional: shadow for effect */
+}
+
+/* Ensure the navbar stays on top */
+.nav-container {
+    position: fixed;  /* Keep navbar fixed at the top */
+    top: 0;
+    left: 0;
+    width: 100%;  /* Full width */
+    background-color: #000;
+    z-index: 1000;  /* Ensure it's on top of other content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow for effect */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    border: 0.2px solid #fff;
+    box-shadow: 0px 0px 2px #111;
+    height: 60px;
+    padding: 0 20px;
+    
+}
+
+
+.nav-logo {
+    width: 100px;
+    height: auto;
+    margin: 20px;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 8px;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-menu a:hover {
+    color: blue;
+    font-weight: 200;
+}
+
+.nav-menu li a.active {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 4px;
+    transition: 0.3s;
+
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none; /* Hide menu initially on mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #000;
+        width: 100vw; /* Full viewport width */
+        height: 100vh; /* Full viewport height */
+        text-align: center;
+        padding-top: 30px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-menu.active {
+        display: flex; /* Show menu when active */
+    }
+
+    .hamburger {
+        display: flex; /* Show hamburger on mobile */
+    }
+    .user-menu {
+        padding-top: 20px; /* Push user menu to the right */
+    }
+}
+
+
+.user-menu {
+    margin-left: auto; /* Push user menu to the right */
+}
+.user-menu a {
+    text-decoration: none;
+    color: #fff; /* Example text color */
+    display: flex;
+    align-items: center; /* Center icon vertically */
+}
+.material-symbols-outlined {
+    font-size: 24px; /* Adjust icon size */
+}
+
+/* Base Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 10px; /* Added padding for small screens */
+    overflow-y: auto; /* Allows scrolling if content is taller than the screen */
+}
+
+.modal-content {
+    background-color: #ffffff; /* White background for clarity */
+    padding: 20px; /* Adjusted padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Slightly deeper shadow for emphasis */
+    width: 80%; /* Adjusted width for smaller screens */
+    max-width: 450px; /* Limits width for larger screens */
+    min-height: 200px; /* Provides minimum height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    position: relative;
+    transform: scale(1); /* Set initial scale */
+    opacity: 1; /* Set initial opacity */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth animation */
+}
+
+/* Add responsiveness */
+@media (min-width: 768px) {
+    .modal-content {
+        width: 60%; /* Slightly wider on tablets and desktops */
+        max-width: 500px; /* Retains max width */
+        padding: 30px; /* More padding on larger screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 90%; /* Narrower width for smaller screens */
+        padding: 15px; /* Reduced padding for mobile */
+    }
+}
+
+/* Close Button */
+.close-button {
+    color: #030303;
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    gap: 40px; /* Space between the buttons */
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%; /* Full width for better layout on small screens */
+}
+
+/* Logout and Cancel Buttons */
+#confirmLogout, #cancelLogout {
+    background-color: #030303;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+    flex: 1; /* Allow buttons to grow equally */
+    max-width: 140px;
+}
+
+/* Ensure modal is hidden by default */
+#logoutModal {
+    display: none;
+}
+
+#confirmLogout:hover, #cancelLogout:hover {
+    background-color: #848483;
+    color: #ffffff; 
+}
+
+/* Paragraph Styles */
+#paragraph1 {
+    color: #222324; /* Text color */
+    font-size: 1.2em; /* Relative font size */
+    font-family: 'Poppins', sans-serif; /* Font family for readability */
+    font-weight: 400; /* Font weight for a balanced look */
+    line-height: 1.6; /* Line height for comfortable reading */
+    margin: 20px; /* Margin for spacing around the paragraph */
+    padding: 10px; /* Padding within the paragraph */
+    text-align: center; /* Center text for better alignment */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 480px) {
+    #paragraph1 {
+        font-size: 1em; /* Adjust font size for smaller screens */
+        margin: 10px; /* Reduce margin for smaller screens */
+        padding: 5px; /* Reduce padding for smaller screens */
+    }
+}
+
+/* Additional Responsive Styles */
+@media (max-width: 768px) {
+    /* Adjust modal content for smaller screens */
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .button-container {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 10px;
+    }
+
+    #confirmLogout, #cancelLogout {
+        width: 100%; /* Make buttons full-width */
+    }
+}
+
+@media (max-width: 375px) {
+    /* Further adjustments for very small screens */
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .close-button {
+        font-size: 20px;
+    }
+
+    .button-container {
+        gap: 8px; /* Smaller gap between buttons */
+    }
+
+    #confirmLogout, #cancelLogout {
+        padding: 8px 20px; /* Reduced padding for smaller buttons */
+        max-width: 100%; /* Full width for small screens */
+    }
+}
+
+
+
+
+
+#Columbary{
+    text-align: center;
+    color: #fff; /* Dark gray for accents */
+    margin-bottom: 30px;
+    margin-top: 120px;
+    font-size: 2.5em; /* Larger font size for the heading */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Subtle text shadow */
+}
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start; /* Align items at the top */
+    gap: 35px;
+}
+
+.product {
+        background: #ffffff; /* White background for cards */
+        border: 1px solid #8e8e8e; /* Light gray border */
+        border-radius: 10px; /* Slightly more rounded corners */
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        padding: 20px; /* More padding for better spacing */
+        width: 300px;
+        min-height: 450px; /* Set a minimum height */
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Smooth transition for hover effects */
+        text-align: center;
+        overflow: hidden; /* Hide overflow to maintain card shape */
+        position: relative;
+        background-size: cover; /* Ensure background covers the entire card */
+        background-position: center; /* Center the background image */
+        margin-bottom: 20px;
+    }
+
+.product:hover {
+    transform: scale(1.05); /* Slightly larger scale on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.product img {
+        width: 40%; /* Ensure images fill the card width */
+        height: auto;
+        border-radius: 10px; /* Match the card's border radius */
+        margin-bottom: 10px; /* Space below images */
+    }
+h2 {
+    font-size: 1.5em;
+    margin: 10px 0;
+    color: #333333; /* Dark text for readability */
+}
+
+p {
+    margin: 5px 0;
+    color: #7d7d7d; /* Lighter gray for secondary text */
+}
+
+/* Button style */
+.button {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #4a4a4a; /* Dark gray for accents */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+    font-weight: bold; /* Bold text for emphasis */
+   
+}
+
+.button:hover {
+    background-color: #333333; /* Darker gray on hover */
+}
+
+
+
+.details {
+    display: none; /* Hide details initially */
+    margin-top: 10px;
+    overflow: auto; /* Allow scrolling if content is too large */
+    
+}
+/* Transition for when the card expands */
+.expanded {
+    
+    height: auto; /* Allow the card to expand based on content */
+    padding-bottom: 30px; /* Add space for the details */
+}
+
+
+.view-more {
+    background-color: #030303; /* Black button for "View More" */
+}
+
+.view-more:hover {
+    background-color: #030303; /* Darker black on hover */
+}
+
+.view-less {
+    background-color: blue; /* Blue button for "View Less" */
+}
+
+.view-less:hover {
+    background-color: blue; /* Darker blue on hover */
+}

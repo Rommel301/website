@@ -1,0 +1,842 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    position: relative;
+    height: 210vh;
+    width: 100%;
+}
+
+/* Add this CSS at the bottom of your existing styles */
+#navbar {
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.sticky {
+    position: fixed; /* Fix the position */
+    top: 0; /* Stick to the top */
+    width: 100%; /* Full width */
+    z-index: 1000; /* Ensure it stays on top of other content */
+    background-color: #000; /* Optional: background color when sticky */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional: shadow for effect */
+}
+
+/* General Styles */
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    border: 0.2px solid #fff;
+    box-shadow: 0px 0px 2px #111;
+    height: 60px;
+    padding: 0 20px;
+}
+
+.nav-logo {
+    width: 100px;
+    height: auto;
+    margin: 20px;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 8px;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-menu a:hover {
+    color: blue;
+    font-weight: 200;
+}
+
+.nav-menu li a.active {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 4px;
+    transition: 0.3s;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none; /* Hide menu initially on mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #000;
+        width: 100vw; /* Full viewport width */
+        height: 100vh; /* Full viewport height */
+        text-align: center;
+        padding-top: 30px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-menu.active {
+        display: flex; /* Show menu when active */
+    }
+
+    .hamburger {
+        display: flex; /* Show hamburger on mobile */
+    }
+    .user-menu {
+        padding-top: 20px; /* Push user menu to the right */
+    }
+}
+
+
+.user-menu {
+    margin-left: auto; /* Push user menu to the right */
+}
+.user-menu a {
+    text-decoration: none;
+    color: #fff; /* Example text color */
+    display: flex;
+    align-items: center; /* Center icon vertically */
+}
+.material-symbols-outlined {
+    font-size: 24px; /* Adjust icon size */
+}
+
+/* Base Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 10px; /* Added padding for small screens */
+    overflow-y: auto; /* Allows scrolling if content is taller than the screen */
+}
+
+.modal-content {
+    background-color: #ffffff; /* White background for clarity */
+    padding: 20px; /* Adjusted padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Slightly deeper shadow for emphasis */
+    width: 80%; /* Adjusted width for smaller screens */
+    max-width: 450px; /* Limits width for larger screens */
+    min-height: 200px; /* Provides minimum height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    position: relative;
+    transform: scale(1); /* Set initial scale */
+    opacity: 1; /* Set initial opacity */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth animation */
+}
+
+/* Add responsiveness */
+@media (min-width: 768px) {
+    .modal-content {
+        width: 60%; /* Slightly wider on tablets and desktops */
+        max-width: 500px; /* Retains max width */
+        padding: 30px; /* More padding on larger screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 90%; /* Narrower width for smaller screens */
+        padding: 15px; /* Reduced padding for mobile */
+    }
+}
+
+/* Close Button */
+.close-button {
+    color: #030303;
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    gap: 40px; /* Space between the buttons */
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%; /* Full width for better layout on small screens */
+}
+
+/* Logout and Cancel Buttons */
+#confirmLogout, #cancelLogout {
+    background-color: #030303;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+    flex: 1; /* Allow buttons to grow equally */
+    max-width: 140px;
+}
+
+/* Ensure modal is hidden by default */
+#logoutModal {
+    display: none;
+}
+
+#confirmLogout:hover, #cancelLogout:hover {
+    background-color: #848483;
+    color: #ffffff; 
+}
+
+/* Paragraph Styles */
+#paragraph1 {
+    color: #222324; /* Text color */
+    font-size: 1.2em; /* Relative font size */
+    font-family: 'Poppins', sans-serif; /* Font family for readability */
+    font-weight: 400; /* Font weight for a balanced look */
+    line-height: 1.6; /* Line height for comfortable reading */
+    margin: 20px; /* Margin for spacing around the paragraph */
+    padding: 10px; /* Padding within the paragraph */
+    text-align: center; /* Center text for better alignment */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 480px) {
+    #paragraph1 {
+        font-size: 1em; /* Adjust font size for smaller screens */
+        margin: 10px; /* Reduce margin for smaller screens */
+        padding: 5px; /* Reduce padding for smaller screens */
+    }
+}
+
+/* Additional Responsive Styles */
+@media (max-width: 768px) {
+    /* Adjust modal content for smaller screens */
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .button-container {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 10px;
+    }
+
+    #confirmLogout, #cancelLogout {
+        width: 100%; /* Make buttons full-width */
+    }
+}
+
+@media (max-width: 375px) {
+    /* Further adjustments for very small screens */
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .close-button {
+        font-size: 20px;
+    }
+
+    .button-container {
+        gap: 8px; /* Smaller gap between buttons */
+    }
+
+    #confirmLogout, #cancelLogout {
+        padding: 8px 20px; /* Reduced padding for smaller buttons */
+        max-width: 100%; /* Full width for small screens */
+    }
+}
+
+
+
+ /* Welcome Section */
+#welcome {
+    background-image: url(images/background.png); /* Ensure the correct relative path */
+    background-size: cover; /* Cover the section fully */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    text-align: center;
+    padding: 400px 100px; /* Padding for the section */
+  
+}
+
+/* Welcome Section Container */
+#welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh; /* Full viewport height */
+    padding: 20px;
+    background-color: #333; /* Background color for contrast */
+}
+
+/* Heading Style */
+#welcome h1 {
+    font-size: 2.5em;
+    color: #fff;
+    margin-bottom: 10px;
+    margin-top: -20px; /* Adjusted for better spacing */
+    font-family: "Poppins", sans-serif;
+}
+
+/* Paragraph Style */
+#welcome p {
+    font-size: 1.2em;
+    color: #fff;
+    margin-bottom: 30px;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Button Style */
+#get-started-btn {
+    padding: 15px 40px;
+    font-size: 1.2em;
+    color: white;
+    background-color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 20px; /* Adds spacing above button */
+}
+
+#get-started-btn:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    #welcome h1 {
+        font-size: 2.2em;
+        margin-top: -10px;
+    }
+    #welcome p {
+        font-size: 1.1em;
+    }
+    #get-started-btn {
+        padding: 12px 35px;
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 768px) {
+    #welcome h1 {
+        font-size: 2em;
+    }
+    #welcome p {
+        font-size: 1em;
+        padding: 0 15px;
+    }
+    #get-started-btn {
+        padding: 10px 30px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    #welcome h1 {
+        font-size: 1.8em;
+    }
+    #welcome p {
+        font-size: 0.9em;
+    }
+    #get-started-btn {
+        padding: 8px 25px;
+        font-size: 0.9em;
+    }
+}
+
+
+/* Base Styles */
+#content-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 15px; /* Default padding */
+    min-height: 100vh;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+#header1 {
+    font-size: 2.5em;
+    color: #030303;
+    margin: 20px 0;
+    font-family: "Poppins", sans-serif;
+    transition: transform 0.3s, color 0.3s;
+    padding-top: 30px;
+}
+
+#header1:hover {
+    color: #0013BC;
+    transform: scale(1.2);
+}
+
+.imgContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.flip-card {
+    background-color: transparent;
+    perspective: 1000px;
+    width: 440px;
+    height: 350px;
+    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.flip-card:hover {
+    transform: scale(1.02);
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+}
+
+.flip-card-front {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.flip-card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.flip-card-front img:hover {
+    transform: scale(1.05);
+}
+
+.flip-card-back {
+    background-color: rgba(51, 51, 51, 0.85);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transform: rotateY(180deg);
+    padding: 15px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+.flip-card-back h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.flip-card-back p {
+    font-size: 1em;
+}
+
+.flip-card.flip .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Media Queries */
+
+/* For large screens (up to 1200px) */
+@media (max-width: 1200px) {
+    #header1 {
+        font-size: 2.2em;
+    }
+    .flip-card {
+        width: 400px;
+        height: 320px;
+    }
+}
+
+/* For medium screens (up to 768px) */
+@media (max-width: 768px) {
+    #header1 {
+        font-size: 2em;
+    }
+    .imgContainer {
+        flex-direction: column; /* Stack vertically */
+        gap: 10px;
+    }
+    #content-section {
+        padding: 40px 10px; /* Less padding for smaller screens */
+    }
+    .flip-card {
+        width: 360px;
+        height: 300px;
+    }
+    .flip-card-back h3, .flip-card-back p {
+        padding: 5px; /* Smaller padding on text */
+    }
+}
+
+/* For small screens (up to 480px) */
+@media (max-width: 480px) {
+    #header1 {
+        font-size: 1.5em; /* Even smaller for mobile */
+    }
+    #header1:hover {
+        transform: scale(1.1); /* Smaller scale */
+    }
+    .flip-card:hover {
+        transform: scale(1.01); /* Subtle effect */
+    }
+    .flip-card {
+        width: 320px;
+        height: 260px;
+    }
+}
+
+
+
+
+hr {
+    border: none;         /* Remove default border */
+    height: 2px;         /* Set height */
+    background-color: #737373; /* Line color */
+    margin: 10px 0;      /* Space above and below the line */
+    
+}
+
+
+/* Content Section */
+.feature-section {
+    padding: 100px 20px; /* Reduced padding for smaller screens */
+    min-height: 100vh;
+    text-align: center;
+}
+
+.container-feature {
+    max-width: 1200px; /* A more typical max-width for responsive design */
+    margin: 0 auto; /* Center the container */
+    padding: 0 15px; /* Padding for smaller screens */
+    box-sizing: border-box;
+}
+
+/* Heading */
+.h1-features {
+    font-size: 2.5em;
+    text-align: center;
+    margin: 40px 0;
+    color: #030303;
+    transition: transform 0.3s, color 0.3s;
+    font-family: "Poppins", sans-serif;
+}
+
+.h1-features:hover {
+    color: #0013BC;
+    transform: scale(1.2);
+}
+
+/* Features Grid */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* More flexible responsive columns */
+    gap: 2rem;
+    margin: 80px 0;
+    padding: 0;
+}
+
+/* Feature Card */
+.feature {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.feature:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
+}
+
+.feature-image {
+    width: 100%;
+    height: 300px; /* Adjusted for better uniformity */
+    object-fit: cover;
+}
+
+.feature-content {
+    padding: 1.5rem;
+    text-align: left;
+}
+
+.feature-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.feature-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5rem;
+}
+
+.feature-title {
+    font-size: 1.25rem;
+    color: #2c3e50;
+}
+
+.feature-description {
+    font-size: 1rem;
+    color: #7f8c8d;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .h1-features {
+        font-size: 2.2em;
+    }
+    .feature-section {
+        padding: 80px 15px;
+    }
+    .features {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .h1-features {
+        font-size: 2em;
+    }
+    .feature-section {
+        padding: 60px 10px;
+    }
+    .features {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .h1-features {
+        font-size: 1.8em;
+    }
+    .feature-section {
+        padding: 40px 10px;
+    }
+    .features {
+        grid-template-columns: 1fr;
+    }
+    .feature-content {
+        padding: 1rem;
+    }
+}
+
+
+a {
+    text-decoration: none;
+    transition: .5s;
+    color: #fff;
+}
+ul ,li {
+    list-style-type: none;
+}
+footer{
+    background-color: rgb(34, 34, 34);
+    color: #fff;
+
+}
+.footer_info{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    padding: 50px 0;
+}
+
+.footer_info .footer_width {
+    padding: 0 15px;
+}
+
+.footer_info h2 {
+    margin-bottom: 20px;
+}
+
+.about , .contact {
+    width: 40%;
+}
+
+.link {
+    width: 20%;
+}
+
+.social-media {
+    margin-top: 30px;
+}
+
+.social-media ul {
+    display: flex;
+}
+
+.social-media ul li a {
+    display: inline-flex; /* Changed to inline-flex to use flexbox properties */
+    align-items: center; /* Center vertically */
+    justify-content: center; /* Center horizontally */
+    margin-right: 50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border: 1px solid #fff;
+    text-align: center;
+}
+
+.social-media ul li a:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+.link ul li a{
+    display: block;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.link ul li a:hover{
+    color: #030303;
+}
+
+.contact ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.contact ul li span {
+    margin-right: 15px;
+}
+
+.copy-right {
+    padding: 15px;
+    text-align: center;
+    background-color: rgb(66, 66, 66);
+}
+
+
+@media screen and (max-width: 992px) {
+    .about, .contact {
+        width: 35%;
+    }
+
+    .link {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .about, .contact, .link {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .footer_info {
+        flex-direction: column;
+    }
+}
+
+/* Additional media query for screen width 375px (e.g., iPhone 6/7/8) */
+@media screen and (max-width: 375px) {
+    .about, .contact, .link {
+        width: 100%;
+        margin-bottom: 20px; /* Adjusted spacing for smaller screen */
+    }
+
+    .footer_info {
+        flex-direction: column;
+        align-items: center; /* Center-align content */
+    }
+
+    /* Optional: Adjust font sizes or padding for smaller screens */
+    .footer_info p, .footer_info a {
+        font-size: 14px; /* Smaller font for better readability */
+    }
+
+    .link {
+        padding: 10px; /* Adjust padding if necessary */
+    }
+}

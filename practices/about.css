@@ -1,0 +1,474 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+    
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    position: relative;
+    height: 70%;
+    width: 100%;
+    background-image: url(images/background.png);
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+    background-repeat: no-repeat; /* Do not repeat the image */ 
+}
+
+/* Add this CSS at the bottom of your existing styles */
+#navbar {
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.sticky {
+    position: fixed; /* Fix the position */
+    top: 0; /* Stick to the top */
+    width: 100%; /* Full width */
+    z-index: 1000; /* Ensure it stays on top of other content */
+    background-color: #000; /* Optional: background color when sticky */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional: shadow for effect */
+}
+
+/* Ensure the navbar stays on top */
+.nav-container {
+    position: fixed;  /* Keep navbar fixed at the top */
+    top: 0;
+    left: 0;
+    width: 100%;  /* Full width */
+    background-color: #000;
+    z-index: 1000;  /* Ensure it's on top of other content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow for effect */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    border: 0.2px solid #fff;
+    box-shadow: 0px 0px 2px #111;
+    height: 60px;
+    padding: 0 20px;
+    
+}
+
+
+.nav-logo {
+    width: 100px;
+    height: auto;
+    margin: 20px;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 8px;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-menu a:hover {
+    color: blue;
+    font-weight: 200;
+}
+
+.nav-menu li a.active {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 4px;
+    transition: 0.3s;
+
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none; /* Hide menu initially on mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #000;
+        width: 100vw; /* Full viewport width */
+        height: 100vh; /* Full viewport height */
+        text-align: center;
+        padding-top: 30px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-menu.active {
+        display: flex; /* Show menu when active */
+    }
+
+    .hamburger {
+        display: flex; /* Show hamburger on mobile */
+    }
+    .user-menu {
+        padding-top: 20px; /* Push user menu to the right */
+    }
+}
+
+
+.user-menu {
+    margin-left: auto; /* Push user menu to the right */
+}
+.user-menu a {
+    text-decoration: none;
+    color: #fff; /* Example text color */
+    display: flex;
+    align-items: center; /* Center icon vertically */
+}
+.material-symbols-outlined {
+    font-size: 24px; /* Adjust icon size */
+}
+
+/* Base Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 10px; /* Added padding for small screens */
+    overflow-y: auto; /* Allows scrolling if content is taller than the screen */
+}
+
+.modal-content {
+    background-color: #ffffff; /* White background for clarity */
+    padding: 20px; /* Adjusted padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Slightly deeper shadow for emphasis */
+    width: 80%; /* Adjusted width for smaller screens */
+    max-width: 450px; /* Limits width for larger screens */
+    min-height: 200px; /* Provides minimum height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    position: relative;
+    transform: scale(1); /* Set initial scale */
+    opacity: 1; /* Set initial opacity */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth animation */
+}
+
+/* Add responsiveness */
+@media (min-width: 768px) {
+    .modal-content {
+        width: 60%; /* Slightly wider on tablets and desktops */
+        max-width: 500px; /* Retains max width */
+        padding: 30px; /* More padding on larger screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 90%; /* Narrower width for smaller screens */
+        padding: 15px; /* Reduced padding for mobile */
+    }
+}
+
+/* Close Button */
+.close-button {
+    color: #030303;
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    gap: 40px; /* Space between the buttons */
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%; /* Full width for better layout on small screens */
+}
+
+/* Logout and Cancel Buttons */
+#confirmLogout, #cancelLogout {
+    background-color: #030303;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+    flex: 1; /* Allow buttons to grow equally */
+    max-width: 140px;
+}
+
+/* Ensure modal is hidden by default */
+#logoutModal {
+    display: none;
+}
+
+#confirmLogout:hover, #cancelLogout:hover {
+    background-color: #848483;
+    color: #ffffff; 
+}
+
+/* Paragraph Styles */
+#paragraph1 {
+    color: #222324; /* Text color */
+    font-size: 1.2em; /* Relative font size */
+    font-family: 'Poppins', sans-serif; /* Font family for readability */
+    font-weight: 400; /* Font weight for a balanced look */
+    line-height: 1.6; /* Line height for comfortable reading */
+    margin: 20px; /* Margin for spacing around the paragraph */
+    padding: 10px; /* Padding within the paragraph */
+    text-align: center; /* Center text for better alignment */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 480px) {
+    #paragraph1 {
+        font-size: 1em; /* Adjust font size for smaller screens */
+        margin: 10px; /* Reduce margin for smaller screens */
+        padding: 5px; /* Reduce padding for smaller screens */
+    }
+}
+
+/* Additional Responsive Styles */
+@media (max-width: 768px) {
+    /* Adjust modal content for smaller screens */
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .button-container {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 10px;
+    }
+
+    #confirmLogout, #cancelLogout {
+        width: 100%; /* Make buttons full-width */
+    }
+}
+
+@media (max-width: 375px) {
+    /* Further adjustments for very small screens */
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .close-button {
+        font-size: 20px;
+    }
+
+    .button-container {
+        gap: 8px; /* Smaller gap between buttons */
+    }
+
+    #confirmLogout, #cancelLogout {
+        padding: 8px 20px; /* Reduced padding for smaller buttons */
+        max-width: 100%; /* Full width for small screens */
+    }
+}
+
+
+
+/* Title Section Styles */
+.wrapper .title {
+    text-align: center; /* Center the title text */
+    background-color: #AFADAC;
+    padding: 60px 20px; /* Increased padding for a more spacious look */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+    margin: 30px auto; /* Center the block with auto margins */
+    max-width: 100%; /* Limit the maximum width for better alignment on larger screens */
+    
+}
+/* Default Styles */
+.meet {
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    
+}
+
+p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    font-family: "Poppins" sans-serif;
+    font-weight: 500;
+}
+
+h5 {
+    font-size: 1.2em;
+    word-spacing: 12px;
+}
+/* Responsive Styles for 375px x 667px screens */
+@media (max-width: 375px) {
+    /* Adjusting the meet class for mobile */
+    .meet {
+        font-size: 24px;        /* Decrease font size for smaller screens */
+        font-weight: 500;       /* Slightly reduce weight for better readability */
+        margin-bottom: 30px;    /* Space below the title */
+    }
+
+    /* Adjusting paragraphs for mobile */
+    p {
+        font-size: 1em;         /* Use a slightly smaller font size */
+        line-height: 1.5;       /* Increase line height for readability */
+        margin-bottom: 8px;     /* Adjust space between paragraphs */
+    }
+
+    /* Adjusting h5 for mobile */
+    h5 {
+        font-size: 1.1em;       /* Slightly smaller font size */
+        word-spacing: 8px;      /* Reduce word-spacing to avoid too much gap */
+        line-height: 1.4;       /* Improve line height for better readability */
+    }
+}
+
+/* Base styles for card container */
+.wrapper .card_Container {
+    
+    position: relative;
+    display: flex;
+    flex-wrap: wrap; /* Allow cards to wrap to the next line */
+    justify-content: center; /* Center cards */
+    margin: 70px 0; /* Margin for the card container */
+    align-items: center;
+    padding: 20px;
+    gap: 20px;
+    
+}
+
+.card_Container .card{
+    position: relative;
+    width: 300px;
+    height: 400px;
+    margin: 70px;
+    overflow: hidden;
+    box-shadow: 0 30px 30px -20px rgba(0, 0, 0, 1),
+                inset 0 0 0 1000px rgba(67, 52, 109, .6);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -60px;
+}
+
+.card .imbBx, .imbBx img{
+    width: 100%;
+    height: 100%;
+}
+
+.card .content{
+    position: absolute;
+    bottom: -160px;
+    width: 100%;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    transition: bottom 0.5s;
+    transition-delay: 0.65s;
+}
+
+.card:hover .content{
+    bottom: 0;
+    transition-delay: 0s;
+}
+
+.content .contentBx h3{
+    text-transform: uppercase;
+    color: #030303;
+    letter-spacing: 2px;
+    font-weight: 500;
+    font-size: 18px;
+    text-align: center;
+    margin: 20px 0 15px;
+    line-height: 1.1em;
+    transition: 0.5s;
+    transition-delay: 0.6s;
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.card:hover .content .contentBx h3{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.content .contentBx h3 span{
+    font-size: 12px;
+    font-weight: 300;
+    text-transform: initial;
+}
+
+.content .sci{
+    position: relative;
+    bottom: 10px;
+    display: flex;
+}
+
+.content .sci li{
+    list-style: none;
+    margin: 0 10px;
+    transform: translateY(40px);
+    transition: 0.5s;
+    opacity: 0;
+    transition-delay: calc(0.2s * var(--i));
+}
+
+.card:hover .content .sci li{
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.content .sci li a{
+    color: #fff;
+    font-size: 24px;
+}
+

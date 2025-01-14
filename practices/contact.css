@@ -1,0 +1,1057 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background-image: url(images/background.png);
+    background-size: cover;
+    background-position: center;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Add this CSS at the bottom of your existing styles */
+#navbar {
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.sticky {
+    position: fixed; /* Fix the position */
+    top: 0; /* Stick to the top */
+    width: 100%; /* Full width */
+    z-index: 1000; /* Ensure it stays on top of other content */
+    background-color: #000; /* Optional: background color when sticky */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional: shadow for effect */
+}
+
+/* Ensure the navbar stays on top */
+.nav-container {
+    position: fixed;  /* Keep navbar fixed at the top */
+    top: 0;
+    left: 0;
+    width: 100%;  /* Full width */
+    background-color: #000;
+    z-index: 1000;  /* Ensure it's on top of other content */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Optional shadow for effect */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    border: 0.2px solid #fff;
+    box-shadow: 0px 0px 2px #111;
+    height: 60px;
+    padding: 0 20px;
+    
+}
+
+
+.nav-logo {
+    width: 100px;
+    height: auto;
+    margin: 20px;
+}
+
+.nav-menu {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 8px;
+    position: relative;
+    transition: color 0.3s ease-in-out;
+}
+
+.nav-menu a:hover {
+    color: blue;
+    font-weight: 200;
+}
+
+.nav-menu li a.active {
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: white;
+    margin: 4px;
+    transition: 0.3s;
+
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none; /* Hide menu initially on mobile */
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #000;
+        width: 100vw; /* Full viewport width */
+        height: 100vh; /* Full viewport height */
+        text-align: center;
+        padding-top: 30px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-menu.active {
+        display: flex; /* Show menu when active */
+    }
+
+    .hamburger {
+        display: flex; /* Show hamburger on mobile */
+    }
+    .user-menu {
+        padding-top: 20px; /* Push user menu to the right */
+    }
+}
+
+
+.user-menu {
+    margin-left: auto; /* Push user menu to the right */
+}
+.user-menu a {
+    text-decoration: none;
+    color: #fff; /* Example text color */
+    display: flex;
+    align-items: center; /* Center icon vertically */
+}
+.material-symbols-outlined {
+    font-size: 24px; /* Adjust icon size */
+}
+
+/* Base Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 10px; /* Added padding for small screens */
+    overflow-y: auto; /* Allows scrolling if content is taller than the screen */
+}
+
+.modal-content {
+    background-color: #ffffff; /* White background for clarity */
+    padding: 20px; /* Adjusted padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Slightly deeper shadow for emphasis */
+    width: 80%; /* Adjusted width for smaller screens */
+    max-width: 450px; /* Limits width for larger screens */
+    min-height: 200px; /* Provides minimum height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    position: relative;
+    transform: scale(1); /* Set initial scale */
+    opacity: 1; /* Set initial opacity */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth animation */
+}
+
+/* Add responsiveness */
+@media (min-width: 768px) {
+    .modal-content {
+        width: 60%; /* Slightly wider on tablets and desktops */
+        max-width: 500px; /* Retains max width */
+        padding: 30px; /* More padding on larger screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 90%; /* Narrower width for smaller screens */
+        padding: 15px; /* Reduced padding for mobile */
+    }
+}
+
+/* Close Button */
+.close-button {
+    color: #030303;
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+}
+
+/* Button Container */
+.button-container {
+    display: flex;
+    gap: 40px; /* Space between the buttons */
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%; /* Full width for better layout on small screens */
+}
+
+/* Logout and Cancel Buttons */
+#confirmLogout, #cancelLogout {
+    background-color: #030303;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+    flex: 1; /* Allow buttons to grow equally */
+    max-width: 140px;
+}
+
+/* Ensure modal is hidden by default */
+#logoutModal {
+    display: none;
+}
+
+#confirmLogout:hover, #cancelLogout:hover {
+    background-color: #848483;
+    color: #ffffff; 
+}
+
+/* Paragraph Styles */
+#paragraph1 {
+    color: #222324; /* Text color */
+    font-size: 1.2em; /* Relative font size */
+    font-family: 'Poppins', sans-serif; /* Font family for readability */
+    font-weight: 400; /* Font weight for a balanced look */
+    line-height: 1.6; /* Line height for comfortable reading */
+    margin: 20px; /* Margin for spacing around the paragraph */
+    padding: 10px; /* Padding within the paragraph */
+    text-align: center; /* Center text for better alignment */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 480px) {
+    #paragraph1 {
+        font-size: 1em; /* Adjust font size for smaller screens */
+        margin: 10px; /* Reduce margin for smaller screens */
+        padding: 5px; /* Reduce padding for smaller screens */
+    }
+}
+
+/* Additional Responsive Styles */
+@media (max-width: 768px) {
+    /* Adjust modal content for smaller screens */
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .button-container {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 10px;
+    }
+
+    #confirmLogout, #cancelLogout {
+        width: 100%; /* Make buttons full-width */
+    }
+}
+
+@media (max-width: 375px) {
+    /* Further adjustments for very small screens */
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .close-button {
+        font-size: 20px;
+    }
+
+    .button-container {
+        gap: 8px; /* Smaller gap between buttons */
+    }
+
+    #confirmLogout, #cancelLogout {
+        padding: 8px 20px; /* Reduced padding for smaller buttons */
+        max-width: 100%; /* Full width for small screens */
+    }
+}
+
+
+.user-menu {
+    margin-left: auto; /* Push user menu to the right */
+}
+.user-menu a {
+    text-decoration: none;
+    color: #fff; /* Example text color */
+    display: flex;
+    align-items: center; /* Center icon vertically */
+}
+.material-symbols-outlined {
+    font-size: 24px; /* Adjust icon size */
+}
+
+
+/* Base Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.5); /* Black with opacity */
+    display: flex; /* Use flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 10px; /* Added padding for small screens */
+    overflow-y: auto; /* Allows scrolling if content is taller than the screen */
+}
+
+.modal-content {
+    background-color: #ffffff; /* White background for clarity */
+    padding: 20px; /* Adjusted padding */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Slightly deeper shadow for emphasis */
+    width: 80%; /* Adjusted width for smaller screens */
+    max-width: 450px; /* Limits width for larger screens */
+    min-height: 200px; /* Provides minimum height */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    position: relative;
+    transform: scale(1); /* Set initial scale */
+    opacity: 1; /* Set initial opacity */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth animation */
+}
+
+/* Add responsiveness */
+@media (min-width: 768px) {
+    .modal-content {
+        width: 60%; /* Slightly wider on tablets and desktops */
+        max-width: 500px; /* Retains max width */
+        padding: 30px; /* More padding on larger screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 90%; /* Narrower width for smaller screens */
+        padding: 15px; /* Reduced padding for mobile */
+    }
+}
+
+/* Close Button */
+.close-button {
+    color: #030303;
+    position: absolute;
+    top: 10px;
+    right: 18px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #000;
+}
+
+
+/* Button Container */
+.button-container {
+    display: flex;
+    gap: 40px; /* Space between the buttons */
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    width: 100%; /* Full width for better layout on small screens */
+}
+
+/* Logout and Cancel Buttons */
+#confirmLogout, #cancelLogout {
+    
+    background-color: #030303;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-align: center;
+    flex: 1; /* Allow buttons to grow equally */
+    max-width: 140px;
+}
+/* Ensure modal is hidden by default */
+#logoutModal {
+    display: none;
+}
+
+#confirmLogout:hover, #cancelLogout:hover {
+    background-color: #848483;
+    color: #ffffff; 
+}
+
+#paragraph1 {
+    color: #222324; /* Text color */
+    font-size: 1.2em; /* Relative font size */
+    font-family: 'Poppins', sans-serif; /* Font family for readability */
+    font-weight: 400; /* Font weight for a balanced look */
+    line-height: 1.6; /* Line height for comfortable reading */
+    margin: 20px; /* Margin for spacing around the paragraph */
+    padding: 10px; /* Padding within the paragraph */
+    text-align: center; /* Center text for better alignment */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 480px) {
+    #paragraph1 {
+        font-size: 1em; /* Adjust font size for smaller screens */
+        margin: 10px; /* Reduce margin for smaller screens */
+        padding: 5px; /* Reduce padding for smaller screens */
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    /* Adjust modal content for smaller screens */
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .button-container {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 10px;
+    }
+
+    #confirmLogout, #cancelLogout {
+        width: 100%; /* Make buttons full-width */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Further adjustments for very small screens */
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .close-button {
+        font-size: 20px;
+    }
+}
+
+.contactUs {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+
+.contactUs .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.50em;
+}
+
+.contactUs .title h2 {
+    color: #fff;
+    font-weight: 500;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.form {
+    grid-area: form;
+}
+.info {
+    grid-area: info;;
+    
+}
+.map {
+    grid-area: map;
+}
+
+.contact{
+    padding: 40px;
+    background: #fff;
+    box-shadow: 0 5px 35px rgba(0, 0, 0,0.15 );
+}
+
+.box {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "form info" " form map";
+    grid-gap: 20px;
+    margin-top: 50px;
+    
+ 
+}
+.contact h3{
+    color: #060606;
+    font-weight: 500;
+    font-size: 1.4em;
+    margin-bottom: 10px
+}
+
+/* form */
+.formBox{
+    position: relative;
+    width: 100%;
+}
+.formBox .row50{
+    display: flex;
+    gap: 20px;
+   
+}
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 50%;
+}
+
+.formBox .row100 .inputBox {
+    width: 100%;
+}
+
+.inputBox span {
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+.inputBox input {
+    padding: 10px;
+    font-size: 1.1em;
+    outline: none;
+    border: 1px solid #333;
+}
+.inputBox textarea {
+    padding: 10px;
+    font-size: 1.1em;
+    outline: none;
+    border: 1px solid #333;
+    resize: none;
+    min-height: 220px;
+    margin-bottom: 10px;
+}
+
+.inputBox input[type="submit"] {
+    background: #000000;  /* Black background */
+    color: #ffffff;  /* White text */
+    border: none;
+    font-size: 1.1em;
+    max-width: 160px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 14px 15px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.inputBox input[type="submit"]:hover {
+    background: #333;  /* White background on hover */
+    color: #000000;  /* Black text on hover */
+}
+
+.inputBox ::placeholder {
+    color: #999;
+}
+
+
+/* info */
+
+.info {
+    background: #000;
+    border: 1px solid #fff;
+    margin-top: 10px;
+} 
+
+.info h3 {
+    color: #fff;
+}
+
+.info .infoBox div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.info .infoBox div span {
+    min-width: 40px;
+    height: 40px;
+    color: #fff;
+    background: #18b7ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    border-radius: 50%;
+    margin-right: 15px;
+
+}
+
+.info .infoBox div  p {
+    color: #fff;
+    font-size: 1.1em;
+}
+.info .infoBox div a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.sci {
+    margin-top: 40px;
+    display: flex;
+}
+
+.sci li {
+    list-style: none;
+    margin-right: 15px;
+}
+
+.sci li a {
+    color: #fff;
+    font-size: 2em;
+    color: #ccc;
+}
+.sci li a:hover {
+    color: #fff;
+}
+
+.map {
+    padding: 0;
+    min-height: 300px;
+}
+.map iframe {
+    width: 100%;
+    height: 100%;
+}  
+
+
+/* Default Styling (for larger screens) */
+.contactUs {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+
+.contactUs .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.50em;
+}
+
+.contactUs .title h2 {
+    color: #fff;
+    font-weight: 500;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.contact {
+    padding: 40px;
+    background: #fff;
+    box-shadow: 0 5px 35px rgba(0, 0, 0, 0.15);
+}
+
+.box {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "form info" "form map";
+    grid-gap: 20px;
+    margin-top: 50px;
+}
+
+/* General form styling */
+.formBox .row50 {
+    display: flex;
+    gap: 20px;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 50%;
+}
+
+
+/* Default styling (for larger screens) */
+.contactUs {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+}
+
+.contactUs .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.50em;
+}
+
+.contactUs .title h2 {
+    color: #fff;
+    font-weight: 500;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.contact {
+    padding: 30px;
+    background: #fff;
+    box-shadow: 0 5px 35px rgba(0, 0, 0, 0.15);
+}
+
+.box {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "form info" "form map";
+    grid-gap: 20px;
+    margin-top: 50px;
+}
+
+/* General form styling */
+.formBox .row50 {
+    display: flex;
+    gap: 20px;
+}
+
+.inputBox {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    width: 50%;
+}
+
+.formBox .row100 .inputBox {
+    width: 100%;
+}
+
+.inputBox span {
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.inputBox input {
+    padding: 10px;
+    font-size: 1.1em;
+    outline: none;
+    border: 1px solid #333;
+}
+
+.inputBox textarea {
+    padding: 10px;
+    font-size: 1.1em;
+    outline: none;
+    border: 1px solid #333;
+    resize: none;
+    min-height: 220px;
+    margin-bottom: 10px;
+}
+
+.inputBox input[type="submit"] {
+    background: #000000;
+    color: #ffffff;
+    border: none;
+    font-size: 1.1em;
+    max-width: 160px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 14px 15px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.inputBox input[type="submit"]:hover {
+    background: #333;
+    color: #000000;
+}
+
+.inputBox::placeholder {
+    color: #999;
+}
+
+/* Info box */
+.info {
+    background: #000;
+    border: 1px solid #fff;
+    margin-bottom: 10px;
+    
+}
+
+.info h3 {
+    color: #fff;
+}
+
+.info .infoBox div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.info .infoBox div span {
+    min-width: 40px;
+    height: 40px;
+    color: #fff;
+    background: #18b7ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.info .infoBox div p {
+    color: #fff;
+    font-size: 1.1em;
+}
+
+.info .infoBox div a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.sci {
+    margin-top: 40px;
+    display: flex;
+}
+
+.sci li {
+    list-style: none;
+    margin-right: 15px;
+}
+
+.sci li a {
+    color: #fff;
+    font-size: 2em;
+    color: #ccc;
+}
+
+.sci li a:hover {
+    color: #fff;
+}
+
+.map {
+    padding: 0;
+    min-height: 300px;
+   
+}
+
+.map iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* Media Query for screens up to 1200px */
+@media (max-width: 1200px) {
+    .contactUs .title {
+        font-size: 1.4em; /* Smaller title font */
+     
+    }
+
+    .contact h3 {
+        font-size: 1.3em;
+    }
+
+    .box {
+        grid-template-columns: 1fr 1fr; /* Two equal columns */
+    }
+
+    .formBox .row50 {
+        gap: 15px; /* Reduce space between input fields */
+    }
+
+    .inputBox {
+        width: 100%; /* Full width for form inputs */
+    }
+
+    .inputBox input, .inputBox textarea {
+        font-size: 1.05em; /* Slightly smaller font */
+    }
+
+    .map {
+        min-height: 250px; /* Reduce map height */
+        
+      
+       
+    }
+}
+
+/* Media Query for screens up to 768px */
+@media (max-width: 768px) {
+    .contactUs {
+        padding: 15px; /* Less padding */
+    }
+
+    .contactUs .title {
+        font-size: 1.3em;
+        margin-top: 30px;
+    }
+
+    .contact h3 {
+        font-size: 1.2em;
+    }
+
+    .box {
+        grid-template-columns: 1fr; /* Stack form, info, and map vertically */
+        grid-template-areas:
+            "form"
+            "info"
+            "map";
+        display: block;
+    }
+
+    .formBox .row50 {
+        flex-direction: column; /* Stack form fields vertically */
+        gap: 10px;
+    }
+
+    .inputBox {
+        width: 100%; /* Full width form inputs */
+    }
+
+    .inputBox input, .inputBox textarea {
+        font-size: 1em; /* Smaller font size */
+        padding: 12px; /* More padding for touch devices */
+    }
+
+    .inputBox input[type="submit"] {
+        width: 100%; /* Full width submit button */
+        padding: 14px;
+        font-size: 1em;
+    }
+
+    .info h3 {
+        font-size: 1.2em;
+    }
+
+    .info .infoBox div {
+        margin-bottom: 15px;
+    }
+
+    .map {
+        min-height: 250px;
+        
+    }
+}
+
+/* Media Query for screens up to 480px (Small mobile screens) */
+@media (max-width: 480px) {
+    .contactUs {
+        padding: 10px; /* Very minimal padding */
+    }
+
+    .contactUs .title {
+        font-size: 1.2em; /* Smaller title */
+        margin-top: 20px;
+    }
+
+    .contact h3 {
+        font-size: 1.1em; /* Smaller heading */
+    }
+
+    .box {
+        grid-template-columns: 1fr; /* Stack all sections vertically */
+        grid-template-areas:
+            "form"
+            "info"
+            "map";
+        margin-top: 30px;
+    }
+
+    .formBox .row50 {
+        flex-direction: column; /* Stack form fields vertically */
+        gap: 8px; /* Reduced gap */
+    }
+
+    .inputBox {
+        width: 100%; /* Full width for form inputs */
+    }
+
+    .inputBox input, .inputBox textarea {
+        font-size: 0.95em; /* Smaller font size */
+        padding: 10px; /* Smaller padding */
+    }
+
+    .inputBox input[type="submit"] {
+        width: 100%; /* Full width submit button */
+        padding: 12px;
+        font-size: 0.95em; /* Smaller font size for the button */
+    }
+   
+
+    .info .infoBox div {
+        flex-direction: column; /* Stack info items vertically */
+        align-items: flex-start;
+    }
+
+    .info .infoBox div span {
+        font-size: 1.2em; /* Smaller icons */
+        min-width: 30px;
+        height: 30px;
+    }
+
+    .info .infoBox div p, .info .infoBox div a {
+        font-size: 0.95em; /* Smaller text size */
+    }
+
+    .sci li {
+        margin-right: 10px; /* Less space between social media icons */
+    }
+
+    .sci li a {
+        font-size: 1.5em; /* Smaller icons */
+    }
+
+    .map {
+        min-height: 200px; /* Reduce map height */
+    }
+}
